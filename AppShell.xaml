@@ -7,7 +7,7 @@
     Title="ToDoList">
 
     <ShellContent
-        Title="Home"
+        Title="ToDoList"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
