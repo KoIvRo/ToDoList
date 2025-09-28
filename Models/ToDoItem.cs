@@ -11,12 +11,16 @@ namespace ToDoList.Models
         [ObservableProperty]
         private string _itemName;
 
-
         [ObservableProperty]
         private string _category;
 
+        [ObservableProperty]
+        private bool _isCompleted;
 
-        public string Description { get; set; }
-        public bool IsCompleted { get; set; }
+        [ObservableProperty]
+        private TimeSpan _endTime;
+
+        [ObservableProperty]
+        private DateTime? _endDate;
     }
 }

@@ -37,15 +37,25 @@ namespace ToDoList.ViewModels
         private ObservableCollection<ToDoItem> todoItems;
 
         [ObservableProperty]
+        private ObservableCollection<ToDoItem> doneItems;
+
+        [ObservableProperty]
         private string newTaskName;
 
         [ObservableProperty]
-        private string newCategory;
+        private string newCategory = "Личное";
+
+        [ObservableProperty]
+        private TimeSpan newEndTime;
+
+        [ObservableProperty]
+        private DateTime? newEndDate;
 
         public MainViewModel()
         {
             _database = new ToDoDB();
             TodoItems = new ObservableCollection<ToDoItem>();
+            DoneItems = new ObservableCollection<ToDoItem>();
             LoadItemsCommand.Execute(null);
         }
 
@@ -54,12 +64,14 @@ namespace ToDoList.ViewModels
         {
             var items = await _database.GetItems();
             if (SelectedCategory == "Все"){
-                TodoItems = new ObservableCollection<ToDoItem>(items);
+                TodoItems = new ObservableCollection<ToDoItem>(items.Where(item => item.IsCompleted == false));
+                DoneItems = new ObservableCollection<ToDoItem>(items.Where(item => item.IsCompleted == true));
             }
             else
             {
                 var filteredItems = items.Where(item => item.Category == SelectedCategory);
-                TodoItems = new ObservableCollection<ToDoItem>(filteredItems);
+                TodoItems = new ObservableCollection<ToDoItem>(filteredItems.Where(item => item.IsCompleted == false));
+                DoneItems = new ObservableCollection<ToDoItem>(filteredItems.Where(item => item.IsCompleted == true));
             }
         }
 
@@ -69,11 +81,25 @@ namespace ToDoList.ViewModels
         }
 
         [RelayCommand]
+        private async Task ToggleComplete(ToDoItem item)
+        {
+            if (item != null)
+            {
+                item.IsCompleted = !item.IsCompleted;
+
+                await _database.SaveItem(item);
+
+                LoadItemsCommand.Execute(null);
+            }
+        }
+
+
+        [RelayCommand]
         private async Task AddItem()
         {
             if ((!string.IsNullOrWhiteSpace(NewTaskName)) && (!string.IsNullOrWhiteSpace(NewCategory)))
             {
-                var newItem = new ToDoItem { ItemName = NewTaskName, Category = NewCategory, IsCompleted = false };
+                var newItem = new ToDoItem { ItemName = NewTaskName, Category = NewCategory, EndTime = NewEndTime, EndDate = NewEndDate, IsCompleted = false };
                 await _database.SaveItem(newItem);
 
                 NewTaskName = string.Empty;
