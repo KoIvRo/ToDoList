@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoList.MainPage"
+             Title="ToDo List"
+             BackgroundColor="#121212">
+
+    <ScrollView>
+        <StackLayout Padding="15" Spacing="12">
+
+            <StackLayout Padding="10" BackgroundColor="#1E1E1E" Spacing="8">
+                <Editor Placeholder="Введите задачу" 
+                       Text="{Binding NewTaskName}" 
+                       FontSize="16"
+                       TextColor="#E0E0E0"
+                       PlaceholderColor="#9E9E9E"
+                       BackgroundColor="#2D2D2D"
+                       MaxLength="80"
+                       AutoSize="TextChanges"/>
+
+                <Picker Title="Выберите категорию" 
+                        ItemsSource="{Binding Categories}" 
+                        SelectedItem="{Binding NewCategory}" 
+                        FontSize="16"
+                        TextColor="#E0E0E0"
+                        TitleColor="#9E9E9E"
+                        BackgroundColor="#2D2D2D"/>
+
+                <Label Text="Выполнить до:" 
+                       FontAttributes="Bold" 
+                       FontSize="14" 
+                       TextColor="#B0B0B0"
+                       Margin="0,5,0,0"/>
+
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <DatePicker Date="{Binding NewEndDate}" 
+                               Format="d" 
+                               FontSize="14" 
+                               TextColor="#E0E0E0"
+                               BackgroundColor="#2D2D2D"/>
+                    <TimePicker Time="{Binding NewEndTime}" 
+                               Format="HH:mm" 
+                               FontSize="14" 
+                               TextColor="#E0E0E0"
+                               BackgroundColor="#2D2D2D"/>
+                </StackLayout>
+
+                <Button Text="Добавить" 
+                        Command="{Binding AddItemCommand}" 
+                        BackgroundColor="#BB86FC" 
+                        TextColor="#121212" 
+                        CornerRadius="8"
+                        FontAttributes="Bold"/>
+            </StackLayout>
+
+            <Picker Title="Выберите фильтр по категориям" 
+                    ItemsSource="{Binding FilterCategories}" 
+                    SelectedItem="{Binding SelectedCategory}" 
+                    FontSize="16"
+                    TextColor="#E0E0E0"
+                    TitleColor="#9E9E9E"
+                    BackgroundColor="#2D2D2D"/>
+
+
+            <Label Text="Выполнить:" 
+                       FontSize="16" 
+                       TextColor="#B0B0B0"
+                       Margin="0,5,0,0"/>
+
+            <CollectionView ItemsSource="{Binding TodoItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,5" Padding="10" CornerRadius="8" BackgroundColor="#1E1E1E" BorderColor="#333">
+                            <StackLayout Orientation="Horizontal" Spacing="8" VerticalOptions="Center">
+                                <Label Text="{Binding ItemName}" FontSize="16" TextColor="#E0E0E0" VerticalOptions="Center"/>
+                                <Label Text=" / " FontSize="16" TextColor="#666" VerticalOptions="Center"/>
+                                <Label Text="{Binding Category}" FontSize="16" TextColor="#BB86FC" VerticalOptions="Center"/>
+
+                                <Label Text=" | До:" FontSize="14" TextColor="#9E9E9E" VerticalOptions="Center" Margin="10,0,0,0"/>
+                                <Label Text="{Binding EndDate, StringFormat='{0:d}'}" FontSize="14" TextColor="#E0E0E0" VerticalOptions="Center"/>
+                                <Label Text="{Binding EndTime}" FontSize="14" TextColor="#E0E0E0" VerticalOptions="Center"/>
+
+                                <Button Text="✓"
+                                      Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ToggleCompleteCommand}"
+                                      CommandParameter="{Binding .}"
+                                      BackgroundColor="LightGreen" 
+                                      TextColor="White"
+                                      WidthRequest="28" 
+                                      HeightRequest="28"
+                                      FontSize="16"
+                                      CornerRadius="14"
+                                      VerticalOptions="Center"/>
+
+                                <Button Text="×" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteItemCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="#CF6679" 
+                                        TextColor="#121212"
+                                        WidthRequest="28" 
+                                        HeightRequest="28"
+                                        FontSize="16"
+                                        CornerRadius="14"
+                                        VerticalOptions="Center"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+            <Label Text="Выполнено:" 
+                       FontSize="16" 
+                       TextColor="#B0B0B0"
+                       Margin="0,5,0,0"/>
+
+            <CollectionView ItemsSource="{Binding DoneItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,5" Padding="10" CornerRadius="8" BackgroundColor="#1E1E1E" BorderColor="#333">
+                            <StackLayout Orientation="Horizontal" Spacing="8" VerticalOptions="Center">
+                                <Label Text="{Binding ItemName}" FontSize="16" TextColor="#E0E0E0" VerticalOptions="Center"/>
+                                <Label Text=" / " FontSize="16" TextColor="#666" VerticalOptions="Center"/>
+                                <Label Text="{Binding Category}" FontSize="16" TextColor="#BB86FC" VerticalOptions="Center"/>
+
+                                <Button Text="×" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteItemCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="#CF6679" 
+                                        TextColor="#121212"
+                                        WidthRequest="28" 
+                                        HeightRequest="28"
+                                        FontSize="16"
+                                        CornerRadius="14"
+                                        VerticalOptions="Center"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
