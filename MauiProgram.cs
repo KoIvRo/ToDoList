@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-
 namespace ToDoList
 {
     public static class MauiProgram
@@ -18,7 +17,6 @@ namespace ToDoList
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
             return builder.Build();
         }
     }

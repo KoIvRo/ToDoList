@@ -18,6 +18,9 @@ namespace ToDoList.Models
         private bool _isCompleted;
 
         [ObservableProperty]
+        private bool _isOverDue;
+
+        [ObservableProperty]
         private TimeSpan _endTime;
 
         [ObservableProperty]
