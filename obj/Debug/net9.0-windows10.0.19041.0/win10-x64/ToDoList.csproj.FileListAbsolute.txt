@@ -520,3 +520,7 @@ C:\Users\ivan\ToDoList\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\SQLitePCLR
 C:\Users\ivan\ToDoList\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\SQLitePCLRaw.core.dll
 C:\Users\ivan\ToDoList\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\SQLitePCLRaw.provider.e_sqlite3.dll
 C:\Users\ivan\ToDoList\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\e_sqlite3.dll
+C:\Users\ivan\ToDoList\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Toolkit.Uwp.Notifications.dll
+C:\Users\ivan\ToDoList\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Win32.SystemEvents.dll
+C:\Users\ivan\ToDoList\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Plugin.LocalNotification.dll
+C:\Users\ivan\ToDoList\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Drawing.Common.dll
